@@ -113,3 +113,8 @@ class WhiskersChoices:
                 "next_state": {},
             },
         }
+
+
+    def get_stage_info(self, state):
+        """Returns the information for the given state."""
+        return self.choices.get(state, {})
