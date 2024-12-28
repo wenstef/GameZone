@@ -1,5 +1,8 @@
 class WhiskersChoices:
     def __init__(self):
+        self.current_state = "intro"
+        self.current_story_index = 0
+        self.current_char_index = 0
         self.choices = {
             "intro": {
                 "image": "living_room.jpg",
