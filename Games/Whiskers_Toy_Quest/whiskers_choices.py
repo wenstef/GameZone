@@ -17,7 +17,7 @@ class WhiskersChoices:
                 },
             },
             "under_bed": {
-                "image": "under_bed.jpg",
+                "image": "bedroom.jpg",
                 "scene_desc": "You found a hidden stash of toys under the bed! But none of them are Whiskers' favorite toy.",
                 "question": "What would you like to do next? Type 'take toy' or 'leave the bedroom' and press Enter.",
                 "next_state": {"take toy": "play_with_toy_ending", "leave the bedroom": "hallway"},
@@ -60,7 +60,7 @@ class WhiskersChoices:
                 "next_state": {"dig": "find_toy", "go back": "outside"},
             },
             "pond": {
-                "image": "pond.jpg",
+                "image": "shiny_object.jpg",
                 "scene_desc": "You look by the pond and see some ripples in the water. It seems like something shiny is reflecting sunlight near the edge.",
                 "question": "What would you like to do? Type 'check shiny object' or 'go back' to return outside.",
                 "next_state": {"check shiny object": "shiny_object", "go back": "outside"},
