@@ -1,8 +1,5 @@
 class WhiskersChoices:
     def __init__(self):
-        self.current_state = "intro"
-        self.current_story_index = 0
-        self.current_char_index = 0
         self.choices = {
             "intro": {
                 "image": "living_room.jpg",
@@ -23,13 +20,14 @@ class WhiskersChoices:
                 "image": "under_bed.jpg",
                 "scene_desc": "You found a hidden stash of toys under the bed! But none of them are Whiskers' favorite toy.",
                 "question": "What would you like to do next? Type 'take toy' or 'leave the bedroom' and press Enter.",
-                "next_state": {"take toy": "play_with_toy", "leave the bedroom": "hallway"},
+                "next_state": {"take toy": "play_with_toy_ending", "leave the bedroom": "hallway"},
             },
             "hallway": {
                 "image": "hallway.jpg",
                 "scene_desc": "You are in the hallway. There are several rooms you can explore. But you can also leave the house and go outside.",
                 "question": "Where would you like to go? Type 'kitchen', 'living room', or 'leave the house and go outside' and press Enter.",
-                "next_state": {"kitchen": "kitchen", "living room": "living_room", "outside": "outside"},
+                "next_state": {"kitchen": "kitchen", "living room": "living_room", "leave the house and go outside":
+                    "outside"},
             },
             "kitchen": {
                 "image": "eating.jpg",
@@ -53,7 +51,7 @@ class WhiskersChoices:
                 "image": "eating.jpg",
                 "scene_desc": "You are eating food in the kitchen. Yum! But you're so distracted by the food that you forget about the toy. You can continue eating or start over.",
                 "question": "What would you like to do next? Type 'continue eating' or 'leave the kitchen' and press Enter.",
-                "next_state": {"continue eating": "eating_ending", "leave the kitchen": "start_over"},
+                "next_state": {"continue eating": "eating_ending", "leave the kitchen": "hallway"},
             },
             "tree": {
                 "image": "tree.jpg",
@@ -90,6 +88,13 @@ class WhiskersChoices:
                 "scene_desc": "You sit on the couch, but Whiskers starts to feel sleepy and distracted.",
                 "question": "Would you like to keep looking for the toy or take a nap? Type 'keep looking' or 'nap'.",
                 "next_state": {"keep looking": "hallway", "nap": "nap_ending"},
+            },
+            "play_with_toy_ending": {
+                "image": "whiskers.jpg",
+                "scene_desc": "Whiskers plays with another toy, it's not his favorite. Maybe next time he'll "
+                                "find it.",
+                "question": "The adventure ends here. Would you like to start over? Type 'yes' or 'no'.",
+                "next_state": {"yes": "intro", "no": "ending"},
             },
             "nap_ending": {
                 "image": "whiskers.jpg",
