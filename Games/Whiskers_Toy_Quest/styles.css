@@ -1,0 +1,169 @@
+/* General Reset and Body Styling */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  color: #fff;
+  background-color: #121212; /* Dark background */
+  display: flex;
+  justify-content: center; /* Centers content horizontally */
+  align-items: flex-start; /* Align items at the top */
+  flex-direction: column; /* Stack content vertically */
+  height: 100%; /* Full height of the page */
+  min-height: 100vh; /* Ensure body takes up full viewport height */
+  padding: 20px;
+  text-align: center;
+  overflow-y: auto; /* Allow scrolling */
+}
+
+/* Title Styling */
+.title {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+header {
+  color: #00b3b3; /* Teal color */
+  font-size: 2.5em;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+/* Container for Layout */
+.container {
+  display: flex;
+  flex-direction: row; /* Aligns the image and text side by side */
+
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* Dark, semi-transparent background for content */
+  border-radius: 10px 10px 0 0; /* Rounded corners on top */
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+  padding: 20px;
+  margin-top: 20px;
+  justify-content: center; /* Center container horizontally */
+  align-items: flex-start; /* Align content to the top */
+  flex-wrap: wrap; /* Allows wrapping in case the screen is too small */
+}
+
+/* Left Side - Background Image */
+.container .image-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Align content to the bottom */
+  background-image: url('assets/living_room.jpg'); /* Replace with your image path */
+  background-size: cover;
+  background-position: center;
+  height: 100%; /* Ensures the image covers the full height */
+  min-height: 500px; /* Minimum height to ensure it takes up enough space */
+  margin-inline-start: 20px; /* Space between image and text */
+  border-radius: 10px;
+}
+
+/* Right Side - Text Section */
+.container .text-section {
+  flex: 1;
+  color: #fff;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Section Titles */
+h2 {
+  color: #00b3b3;
+  margin-bottom: 15px;
+}
+
+/* Game Description */
+.game-description {
+  font-size: 1.2em;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+/* Call-to-action Button Styling */
+.cta-btn {
+  background-color: #008080;
+  color: white;
+  padding: 15px 30px;
+  text-decoration: none;
+  font-size: 1.2em;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+  display: inline-block;
+  margin-top: 0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.cta-btn:hover {
+  background-color: #004d4d;
+}
+
+.cta-btn:active {
+  background-color: #003737;
+}
+
+/* Footer Styling */
+footer {
+  background-color: rgba(0, 128, 128, 0.8);
+  color: white;
+  padding: 10px 0;
+  text-align: center;
+  width: 100%;
+  border-radius: 0 0 10px 10px;
+  position: relative; /* Allow footer to be at the bottom */
+}
+
+footer a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column; /* Stack the image and text vertically */
+    padding: 15px;
+  }
+
+  header {
+    font-size: 2em; /* Smaller header font */
+  }
+
+  .game-description, h2 {
+    font-size: 1em; /* Adjust text size for mobile screens */
+  }
+
+  .cta-btn {
+    font-size: 1em; /* Smaller button font */
+    padding: 12px 25px;
+  }
+}
+
+@media (max-width: 480px) {
+  header {
+    font-size: 1.5em; /* Even smaller header font on very small screens */
+  }
+
+  .game-description {
+    font-size: 0.9em; /* Smaller text for very small screens */
+  }
+
+  .cta-btn {
+    font-size: 0.9em; /* Even smaller button font */
+    padding: 10px 20px;
+  }
+}
