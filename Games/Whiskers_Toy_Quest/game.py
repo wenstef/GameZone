@@ -3,7 +3,6 @@ import os
 from tkinter import Image
 from PIL import Image, ImageTk
 
-
 class GameGUI:
     def __init__(self, master, game_state, whiskers_choices):
         self.master = master
@@ -21,7 +20,8 @@ class GameGUI:
         self.master.grid_columnconfigure(1, weight=1)
 
         # Title label
-        self.title_label = ctk.CTkLabel(self.master, text="Whiskers Toy Quest", font=ctk.CTkFont(size=24, weight="bold"))
+        self.title_label = ctk.CTkLabel(self.master, text="Whiskers Toy Quest",
+                                        font=ctk.CTkFont(size=24, weight="bold"))
         self.title_label.grid(row=0, column=0, columnspan=2, pady=10)
 
         # Left frame for button and image
@@ -33,7 +33,7 @@ class GameGUI:
                                         font=ctk.CTkFont(size=14))
         self.story_label.pack()
 
-        self.image_label = ctk.CTkLabel(self.left_frame, text="Image not found", width=400, height=300)
+        self.image_label = ctk.CTkLabel(self.left_frame, text="", width=400, height=300)
         self.image_label.pack(pady=20, padx=20)
 
         # Right frame for story and input
@@ -44,11 +44,6 @@ class GameGUI:
         self.question_label = ctk.CTkLabel(self.right_frame, text="", wraplength=300, font=ctk.CTkFont(size=14))
         self.question_label.pack()
 
-        # Message label
-        self.message_label = ctk.CTkLabel(self.right_frame, text="", wraplength=300, justify="left",
-                                            font=ctk.CTkFont(size=14))
-        self.message_label.pack()
-
         # Input field
         self.user_input = ctk.CTkEntry(self.right_frame, placeholder_text="Type your choice here", width=350)
         self.user_input.pack(pady=20)
@@ -58,33 +53,38 @@ class GameGUI:
         # Start the game
         self.start_game()
 
+    def get_asset_path(self, filename):
+        """Get the full path to the asset file."""
+        return os.path.join("assets", filename)
+
     def start_game(self):
         """Start the game by displaying the intro story."""
-        self.display_next_char()
+        self.update_stage_description()
+        self.user_input.configure(state="normal")
 
-
-    def display_next_char(self):
-        """Display the next character in the intro story."""
-        char = self.game_state.get_next_line()
-        if char:
-            # Add the character to the story text (label)
-            current_text = self.story_label.cget("text")
-            current_text += char
-            self.story_label.configure(text=current_text)
-            # Call this method again after 50 milliseconds to display the next character
-            self.master.after(50, self.display_next_char) # Delay of 50 milliseconds
+    def display_next_char(self, text, callback):
+        """Display the next character in a given text."""
+        if hasattr(self, '_current_text'):  # Ensure continuation between calls
+            current_text = self._current_text
         else:
-            # Enable the user input after the scene description is fully displayed
-            self.user_input.configure(state="normal")
-            self.update_stage_description()
+            current_text = ""
+
+        if len(current_text) < len(text):
+            next_char = text[len(current_text)]
+            self._current_text = current_text + next_char
+            self.story_label.configure(text=self._current_text)
+            self.master.after(50, lambda: self.display_next_char(text, callback))
+        else:
+            delattr(self, '_current_text')
+            callback()
 
     def update_stage_description(self):
         """Update the stage description and question."""
         stage_info = self.game_state.get_current_stage_info()
         if stage_info:
-            self.story_label.configure(text=stage_info['scene_desc'])
+            self.display_next_char(stage_info['scene_desc'], self.enable_input)
+            self.update_image(stage_info['image'])
             self.question_label.configure(text=stage_info['question'])
-
 
     def handle_input(self, event):
         """Handle the user input."""
@@ -92,5 +92,23 @@ class GameGUI:
         if user_input:
             self.user_input.delete(0, "end")
             if self.game_state.transition_to_next_state(user_input):
-                self.display_next_char()
+                self.update_stage_description()
+            else:
+                self.story_label.configure(text="Invalid choice. Try again.")
 
+    def enable_input(self):
+        """Enable the user input field."""
+        self.user_input.configure(state="normal")
+
+    def update_image(self, image_path):
+        """Loads and updates the image in the GUI."""
+        img_path = self.get_asset_path(image_path)
+        try:
+            img = Image.open(img_path)
+            img_resized = ctk.CTkImage(img, size=(350, 350))
+            self.image_label.configure(image=img_resized, text="")
+            self.image_label.image = img_resized
+        except FileNotFoundError:
+            print(f"Error: Image file not found: {img_path}")
+            self.image_label.configure(image='', text="Image not found")
+            self.image_label.image = None
