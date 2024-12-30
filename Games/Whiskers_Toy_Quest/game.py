@@ -69,14 +69,14 @@ class GameGUI:
         else:
             current_text = ""
 
-        if len(current_text) < len(text):
-            next_char = text[len(current_text)]
-            self._current_text = current_text + next_char
-            self.story_label.configure(text=self._current_text)
-            self.master.after(50, lambda: self.display_next_char(text, callback))
+        if len(current_text) < len(text): # If there are more characters to display
+            next_char = text[len(current_text)] # Get the next character
+            self._current_text = current_text + next_char # Append the next character
+            self.story_label.configure(text=self._current_text) # Update the label
+            self.master.after(50, lambda: self.display_next_char(text, callback)) # Call the function again
         else:
-            delattr(self, '_current_text')
-            callback()
+            delattr(self, '_current_text') # Remove the attribute
+            callback() # Call the callback function
 
     def update_stage_description(self):
         """Update the stage description and question."""
@@ -90,11 +90,11 @@ class GameGUI:
         """Handle the user input."""
         user_input = self.user_input.get().strip()
         if user_input:
-            self.user_input.delete(0, "end")
-            if self.game_state.transition_to_next_state(user_input):
-                self.update_stage_description()
+            self.user_input.delete(0, "end") # Clear the input field
+            if self.game_state.transition_to_next_state(user_input): # Transition to the next state
+                self.update_stage_description() # Update the stage description
             else:
-                self.story_label.configure(text="Invalid choice. Try again.")
+                self.story_label.configure(text="Invalid choice. Try again.") # Display an error message
 
     def enable_input(self):
         """Enable the user input field."""

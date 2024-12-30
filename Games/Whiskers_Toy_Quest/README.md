@@ -51,7 +51,10 @@ Whiskers Toy Quest is an interactive text-based adventure game where players hel
 
 <br>
 <!-- add your screenshots like this -->
-<!-- ![image](url) -->
+![image](assets/Whiskers_Toy_Quest.png)
+![image](assets/Whiskers_Toy_Quest_2.png)
+![image](assets/Whiskers_Toy_Quest_3.png)
+
 
 <br>
 
