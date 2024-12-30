@@ -9,8 +9,8 @@ if __name__ == "__main__":
     root.title("Whiskers Toy Quest")
     root.geometry("800x600")
 
-    whiskers_choices = WhiskersChoices()
-    game_state = WhiskersGameState(whiskers_choices)
-    gui = GameGUI(root, game_state, whiskers_choices)
+    whiskers_choices = WhiskersChoices() # Create an instance of WhiskersChoices
+    game_state = WhiskersGameState(whiskers_choices) # Create an instance of WhiskersGameState
+    gui = GameGUI(root, game_state, whiskers_choices) # Create an instance of GameGUI
 
-    root.mainloop()
+    root.mainloop() # Start the main event loop

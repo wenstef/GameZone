@@ -1,6 +1,6 @@
 class WhiskersChoices:
     def __init__(self):
-        self.choices = {
+        self.choices = { # Dictionary of game choices
             "intro": {
                 "image": "living_room.jpg",
                 "scene_desc": "Whiskers lost his favorite toy and needs your help to find it! Are you ready to embark on a fun adventure?",
